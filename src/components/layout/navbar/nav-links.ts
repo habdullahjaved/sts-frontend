@@ -18,8 +18,8 @@ export const navLinks = [
   },
 
   {
-    label: "Events",
-    href: "/events",
+    label: "Seminars",
+    href: "/seminars",
   },
 
   {
