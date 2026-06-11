@@ -1,26 +1,336 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
+/* =====================================================
+   THEME TOKENS
+===================================================== */
 @theme inline {
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Core */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* Brand Extras */
+  --color-tulip-tree: var(--tulip-tree);
+  --color-reno-sand: var(--reno-sand);
+  --color-portica: var(--portica);
+  --color-luxor-gold: var(--luxor-gold);
+
+  /* 🔥 MAROON FULL INTEGRATION */
+  --color-maroon: var(--maroon);
+  --color-brand-maroon: var(--brand-maroon);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =====================================================
+   LIGHT THEME
+===================================================== */
+:root {
+  --radius: 1rem;
+
+  /* Base */
+  --background: #fcfaf5;
+  --foreground: #1f1b14;
+
+  --card: #ffffff;
+  --card-foreground: #1f1b14;
+
+  --popover: #ffffff;
+  --popover-foreground: #1f1b14;
+
+  /* Brand */
+  --primary: #e6b13a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #9a6c18;
+  --secondary-foreground: #ffffff;
+
+  --accent: #fadd67;
+  --accent-foreground: #1f1b14;
+
+  /* Custom Brand Colors */
+  --tulip-tree: #e6b13a;
+  --reno-sand: #9a6c18;
+  --portica: #fadd67;
+  --luxor-gold: #997e32;
+  --maroon: #800000;
+
+  /* 🔥 SEMANTIC MAROON USAGE */
+  --brand-maroon: #800000;
+  --brand-maroon-foreground: #ffffff;
+
+  /* Semantic */
+  --muted: #f8f2df;
+  --muted-foreground: #6b6047;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  /* UI */
+  --border: #eadfbc;
+  --input: #f7f1df;
+  --ring: #e6b13a;
+
+  /* =====================================================
+     GRADIENTS (NOW MAROON ACTIVE)
+  ===================================================== */
+
+  --gradient-primary: linear-gradient(135deg, #e6b13a 0%, #9a6c18 100%);
+
+  --gradient-gold: linear-gradient(
+    135deg,
+    #fadd67 0%,
+    #e6b13a 50%,
+    #997e32 100%
+  );
+
+  --gradient-maroon: linear-gradient(135deg, #800000 0%, #e6b13a 100%);
+
+  --gradient-maroon-gold: linear-gradient(
+    135deg,
+    #800000 0%,
+    #fadd67 50%,
+    #e6b13a 100%
+  );
+
+  --gradient-hero-overlay: linear-gradient(
+    180deg,
+    rgba(31, 27, 20, 0.45) 0%,
+    rgba(31, 27, 20, 0.85) 100%
+  );
+
+  /* =====================================================
+     SHADOWS
+  ===================================================== */
+
+  --shadow-soft: 0 4px 20px rgba(154, 108, 24, 0.08);
+  --shadow-medium: 0 10px 40px rgba(154, 108, 24, 0.12);
+  --shadow-strong: 0 20px 60px rgba(154, 108, 24, 0.18);
+
+  --shadow-gold: 0 0 40px rgba(230, 177, 58, 0.25);
+  --shadow-maroon: 0 0 35px rgba(128, 0, 0, 0.25);
+}
+
+/* =====================================================
+   DARK THEME
+===================================================== */
+.dark {
+  --background: #111111;
+  --foreground: #f8f3e6;
+
+  --card: #181818;
+  --card-foreground: #f8f3e6;
+
+  --popover: #181818;
+  --popover-foreground: #f8f3e6;
+
+  --primary: #fadd67;
+  --primary-foreground: #111111;
+
+  --secondary: #e6b13a;
+  --secondary-foreground: #111111;
+
+  --accent: #997e32;
+  --accent-foreground: #ffffff;
+
+  --muted: #1f1f1f;
+  --muted-foreground: #c8ba93;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #302712;
+  --input: #241e10;
+  --ring: #fadd67;
+
+  /* Dark gradients now also include maroon identity */
+  --gradient-primary: linear-gradient(135deg, #fadd67 0%, #e6b13a 100%);
+
+  --gradient-gold: linear-gradient(
+    135deg,
+    #997e32 0%,
+    #e6b13a 50%,
+    #fadd67 100%
+  );
+
+  --gradient-maroon: linear-gradient(135deg, #800000 0%, #fadd67 100%);
+
+  --gradient-maroon-gold: linear-gradient(
+    135deg,
+    #800000 0%,
+    #e6b13a 50%,
+    #fadd67 100%
+  );
+
+  --gradient-hero-overlay: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+
+  --shadow-maroon: 0 0 40px rgba(128, 0, 0, 0.18);
+}
+
+/* =====================================================
+   BASE STYLES
+===================================================== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight text-foreground;
+  }
+
+  p {
+    @apply text-muted-foreground leading-relaxed;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: white;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =====================================================
+   UTILITIES
+===================================================== */
+@layer utilities {
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .bg-gradient-maroon {
+    background: var(--gradient-maroon);
+  }
+
+  .bg-gradient-maroon-gold {
+    background: var(--gradient-maroon-gold);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .shadow-strong {
+    box-shadow: var(--shadow-strong);
+  }
+
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .shadow-maroon {
+    box-shadow: var(--shadow-maroon);
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-maroon {
+    background: var(--gradient-maroon-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glass-card {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .dark .glass-card {
+    background: rgba(24, 24, 24, 0.75);
+  }
+
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out;
 }
